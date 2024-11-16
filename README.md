@@ -1,6 +1,7 @@
 **Линейное программирование**
 ```cpp
- №1 package main
+ №1
+package main
 
 import (
  "fmt"
