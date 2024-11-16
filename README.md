@@ -94,4 +94,171 @@ func main() {
  result := fromDecimal(decimalValue, outputBase)
  fmt.Printf("Число %s в системе счисления %d переводится в: %s в системе счисления %d\n", number, inputBase, result, outputBase)
 }
+№2
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+var a, b, c float64
+
+func main() {
+	fmt.Println("Введите коэффициент a:")
+	fmt.Scanln(&a)
+
+	fmt.Println("Введите коэффициент b:")
+	fmt.Scanln(&b)
+
+	fmt.Println("Введите коэффициент c:")
+	fmt.Scanln(&c)
+
+	discriminant := b*b - 4*a*c
+
+	if discriminant > 0 {
+		root1 := ((-1*b) + math.Sqrt(discriminant)) / (2 * a)
+		root2 := ((-1*b) - math.Sqrt(discriminant)) / (2 * a)
+		fmt.Printf("Два корня: %.2f и %.2f\n", root1, root2)
+	} else if discriminant == 0 {
+		root := (-1*b) / (2 * a)
+		fmt.Printf("Один корень: %.2f\n", root)
+	} else {
+		realPart := -1*b / (2 * a)
+		imaginaryPart := math.Sqrt(-discriminant) / (2 * a)
+		fmt.Printf("Комплексные корни: %.2f + %.2fi и %.2f - %.2fi\n", realPart, imaginaryPart, realPart, imaginaryPart)
+	}
+}
+
+№3
+package main
+
+import (
+	"fmt"
+)
+
+var a [6]int
+
+func main() {
+	for i := 0; i <= 5; i++ {
+		var inp int
+		fmt.Scan(&inp)
+		a[i] = inp
+	}
+	for i := 0; i <= 5; i++ {
+		for j := i; j < 5; j++ {
+			if a[i] > a[j+1] {
+				var c = 0
+				c = a[j+1]
+				a[j+1] = a[i]
+				a[i] = c
+			}
+		}
+	}
+	fmt.Println(a)
+}
+
+№4
+
+package main
+
+import (
+	"fmt"
+)
+
+var a [6]int
+var b [6]int
+var ab [12]int
+
+func main() {
+	for i := 0; i <= 5; i++ {
+		var inp int
+		fmt.Scan(&inp)
+		a[i] = inp
+	}
+	for i := 0; i <= 5; i++ {
+		for j := i; j < 5; j++ {
+			if a[i] > a[j+1] {
+				var c = 0
+				c = a[j+1]
+				a[j+1] = a[i]
+				a[i] = c
+			}
+		}
+	}
+
+	for i := 0; i <= 5; i++ {
+		var inp int
+		fmt.Scan(&inp)
+		b[i] = inp
+	}
+	for i := 0; i <= 5; i++ {
+		for j := i; j < 5; j++ {
+			if b[i] > b[j+1] {
+				var c = 0
+				c = b[j+1]
+				b[j+1] = b[i]
+				b[i] = c
+			}
+		}
+	}
+	for i := 0; i <= len(a)-1; i++ {
+		ab[i] = a[i]
+	}
+	var j int = len(a)
+	for i := 0; i <= len(b)-1; i++ {
+		ab[j] = b[i]
+		j = j + 1
+	}
+	for i := 0; i <= 11; i++ {
+		for j := i; j < 11; j++ {
+			if ab[i] > ab[j+1] {
+				var c = 0
+				c = ab[j+1]
+				ab[j+1] = ab[i]
+				ab[i] = c
+			}
+		}
+	}
+	fmt.Println(ab)
+}
+
+№5
+
+package main
+
+import (
+	"fmt"
+)
+
+var a string
+var b string
+
+func main() {
+	fmt.Println("Введите основную строку")
+	fmt.Scanln(&a)
+	fmt.Println("Введите символы для поиска")
+	fmt.Scanln(&b)
+
+	var j int = 0
+	var ind int = 0
+	var i int = 0
+	for i = 0; i < len(a)-1; i++ {
+		if a[i] == b[j] {
+			j = j + 1
+			if j == 1 {
+				ind = i
+			}
+			if j == len(b) {
+				fmt.Println(ind)
+				break
+			}
+		} else {
+			j = 0
+		}
+	}
+	if j < len(b)-1 {
+		fmt.Println("-1")
+	}
+}
 ```
