@@ -1,3 +1,4 @@
+***Задачи на языке программирования Go Пашенин А.М. ЭФМО-01-24***
 **Линейное программирование**
 ```cpp
  №1
@@ -260,5 +261,342 @@ func main() {
 	if j < len(b)-1 {
 		fmt.Println("-1")
 	}
+}
+```
+
+ **Условия**
+ ```cpp
+№1
+
+package main
+
+import (
+	"fmt"
+)
+
+var a int
+var b int
+var c string
+var res int
+
+func main() {
+
+	fmt.Println("Введите значение 1:")
+	fmt.Scan(&a)
+	fmt.Println("Введите значение 2:")
+	fmt.Scan(&b)
+	fmt.Println("Введите символ действия:")
+	fmt.Scan(&c)
+
+	switch c {
+	case "+":
+		res = a + b
+		fmt.Println(res)
+	case "-":
+		res = a - b
+		fmt.Println(res)
+	case "*":
+		res = a * b
+		fmt.Println(res)
+	case "/":
+		if b == 0 {
+			fmt.Println("На ноль делить нельзя!!!")
+		} else {
+			res = a / b
+			fmt.Println(res)
+		}
+	case "%":
+		if b == 0 {
+			fmt.Println("На ноль делить нельзя!!!")
+		} else {
+			res = a % b
+			fmt.Println(res)
+		}
+	default:
+		fmt.Println("Вы ввели недопустимый символ")
+	}
+}
+
+№2
+
+package main
+
+import (
+	"fmt"
+	"unicode"
+)
+
+func isPalindrome(input string) bool {
+	
+	var cleaned []rune
+	for _, char := range input {
+		if unicode.IsLetter(char) || unicode.IsDigit(char) {
+			cleaned = append(cleaned, unicode.ToLower(char))
+		}
+	}
+	n := len(cleaned)
+	for i := 0; i < n/2; i++ {
+		if cleaned[i] != cleaned[n-1-i] {
+			return false
+		}
+	}
+
+	return true
+}
+
+func main() {
+	var input string
+
+	fmt.Print("Введите строку: ")
+	fmt.Scanln(&input)
+
+	if isPalindrome(input) {
+		fmt.Println("Строка является палиндромом.")
+	} else {
+		fmt.Println("Строка не является палиндромом.")
+	}
+}
+
+№3
+
+package main
+
+import (
+	"fmt"
+)
+
+var a1 int
+var a2 int
+var b1 int
+var b2 int
+var c1 int
+var c2 int
+
+func main() {
+
+	fmt.Println("Введите отрезок 1:")
+	fmt.Scan(&a1)
+	fmt.Scan(&a2)
+	fmt.Println("Введите отрезок 2:")
+	fmt.Scan(&b1)
+	fmt.Scan(&b2)
+	fmt.Println("Введите отрезок 3:")
+	fmt.Scan(&c1)
+	fmt.Scan(&c2)
+
+	if a2 >= b1 && a2 >= c1 && a1 <= b2 && a1 <= c2 {
+		fmt.Println(true)
+	} else if b2 >= a1 && b2 >= c1 && b1 <= a2 && b1 <= c2 {
+		fmt.Println(true)
+	} else if c2 >= b1 && c2 >= a1 && c1 <= b2 && c1 <= a2 {
+		fmt.Println(true)
+	} else {
+		fmt.Println(false)
+	}
+}
+№4
+
+package main
+
+import (
+	"fmt"
+	"regexp"
+	"strings"
+)
+
+func findLongestWord(sentence string) string {
+	re := regexp.MustCompile(`[^\w\s]+`)
+	cleaned := re.ReplaceAllString(sentence, "")
+	words := strings.Fields(cleaned)
+	longestWord := ""
+	for _, word := range words {
+		if len(word) > len(longestWord) {
+			longestWord = word
+		}
+	}
+
+	return longestWord
+}
+
+func main() {
+	var input string
+	fmt.Print("Введите предложение: ")
+	fmt.Scanln(&input)
+	longestWord := findLongestWord(input)
+	if longestWord != "" {
+		fmt.Println("Самое длинное слово:", longestWord)
+	} else {
+		fmt.Println("Не удалось найти слова в предложении.")
+	}
+}
+
+№5
+
+ackage main
+
+import (
+	"fmt"
+)
+
+var year int
+var a, b, c int
+
+func main() {
+
+	fmt.Println("Введите год:")
+	fmt.Scan(&year)
+
+	a = year % 4
+	b = year % 100
+	c = year % 400
+	if a == 0 && b != 0 {
+		fmt.Print(true)
+	} else if c == 0 {
+		fmt.Print(true)
+	} else {
+		fmt.Print(false)
+	}
+
+}
+```
+**Циклы**
+ ```cpp
+
+№1
+
+package main
+
+import (
+	"fmt"
+)
+
+var limit int
+
+func main() {
+
+	fmt.Print("Введите верхнюю границу для чисел Фибоначчи: ")
+	fmt.Scan(&limit)
+
+	a, b := 0, 1
+
+	for a <= limit {
+		fmt.Println(a)
+		a, b = b, a+b
+	}
+}
+
+
+№2
+
+package main
+
+import (
+	"fmt"
+)
+
+var a, b int
+
+func main() {
+
+	fmt.Println("Введите числа:")
+	fmt.Scan(&a, &b)
+
+	for a = a + 1; a <= b-1; a++ {
+		fmt.Println(a)
+	}
+}
+
+№3
+
+package main
+
+import (
+	"fmt"
+	"math"
+)
+func isArmstrong(number int) bool {
+	digits := make([]int, 0)
+	n := number
+	for n > 0 {
+		digit := n % 10
+		digits = append(digits, digit)
+		n /= 10
+	}
+	numDigits := len(digits)
+	sum := 0
+	for _, digit := range digits {
+		sum += int(math.Pow(float64(digit), float64(numDigits)))
+	}
+	return sum == number
+}
+
+func main() {
+	var lower, upper int
+	fmt.Print("Введите нижнюю границу диапазона: ")
+	fmt.Scan(&lower)
+	fmt.Print("Введите верхнюю границу диапазона: ")
+	fmt.Scan(&upper)
+	fmt.Printf("Числа Армстронга в диапазоне от %d до %d:\n", lower, upper)
+	for i := lower; i <= upper; i++ {
+		if isArmstrong(i) {
+			fmt.Println(i)
+		}
+	}
+}
+
+№4
+
+package main
+
+import (
+	"fmt"
+)
+
+func reverseString(s string) string {
+
+	reversed := make([]byte, len(s))
+
+	for i := 0; i < len(s); i++ {
+		reversed[len(s)-1-i] = s[i]
+	}
+
+	return string(reversed)
+}
+
+func main() {
+	var input string
+
+	fmt.Print("Введите строку: ")
+	fmt.Scanln(&input)
+
+	reversedString := reverseString(input)
+
+	fmt.Printf("Обратная строка: %s\n", reversedString)
+}
+
+№5
+
+package main
+
+import (
+	"fmt"
+)
+func gcd(a, b int) int {
+	for b != 0 {
+		temp := b
+		b = a % b
+		a = temp
+	}
+	return a
+}
+
+func main() {
+	var num1, num2 int
+	fmt.Print("Введите первое число: ")
+	fmt.Scan(&num1)
+	fmt.Print("Введите второе число: ")
+	fmt.Scan(&num2)
+	result := gcd(num1, num2)
+	fmt.Printf("Наибольший общий делитель чисел %d и %d равен %d\n", num1, num2, result)
 }
 ```
